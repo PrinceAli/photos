@@ -1,10 +1,18 @@
-.PHONY: build release test clean run
+XCODE_DERIVED_DATA = .build/xcode
+
+.PHONY: build release build-debug build-release test clean run
 
 build:
 	swift build
 
 release:
 	swift build -c release
+
+build-debug:
+	xcodebuild -scheme photos -configuration Debug -derivedDataPath $(XCODE_DERIVED_DATA) -destination 'platform=macOS' build
+
+build-release:
+	xcodebuild -scheme photos -configuration Release -derivedDataPath $(XCODE_DERIVED_DATA) -destination 'platform=macOS' build
 
 test:
 	swift build
